@@ -1,17 +1,5 @@
-drivers=[
-    {
-      "name":"Syed Mohsin Ali Shah",
-      "age":25,
-      "experience":"3 yrs",
-      "phone":'03155126260'
-    },
-    {
-        "name":"Shoaib Ahmed",
-        "age":31,
-        "experience":"5 yrs",
-        "phone":'03135124360'
-    }
-]
+import json
+import os
 def login(func):
     def wrapper(*args, **kwargs):
         print("------------------------Login to see drivers list------------------------")
@@ -26,10 +14,29 @@ def login(func):
             print("Access Denied: Invalid username or password")
     return wrapper
 @login
-def Drivers_list():
+def show_drivers():
     print("------------------------Drivers Details------------------------")
-    for index,driver in enumerate(drivers):
-        index = index + 1
-        print(f"------------------------Driver {index}------------------------")
-        for key, value in driver.items():
-            print(f"{key} => {value}")
+    file_path="drivers.json"
+    if not os.path.exists(file_path):
+        print("No driver found")
+        return
+    rf=open(file_path,"r")
+    try:
+      drivers=json.load(rf)
+    except json.JSONDecodeError:
+        print("Error reading drivers data.")
+        return
+    if not drivers:
+        print("No driver found.")
+        return
+
+    print("------------------------List of Drivers------------------------")
+    for i, driver in enumerate(drivers, 1):
+        print(f"Driver {i}:")
+        print(f"  Name: {driver['name']}")
+        print(f"  Age: {driver['age']}")
+        print(f"  Experience: {driver['experience']}")
+        print(f"  Contact: {driver['contact']}")
+
+        print("-----------------------------------------------------------")
+

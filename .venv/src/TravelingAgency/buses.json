@@ -3,5 +3,10 @@
         "name": "ZHK382",
         "capacity": 31,
         "class": "Economy"
+    },
+    {
+        "name": "ZKdr12",
+        "capacity": 55,
+        "class": "First"
     }
 ]
